@@ -1,26 +1,132 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius: var(--radius);
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: hsl(240 10% 3.9%);
+    --foreground: hsl(0 0% 98%);
+    --card: hsl(240 10% 3.9%);
+    --card-foreground: hsl(0 0% 98%);
+    --popover: hsl(240 10% 3.9%);
+    --popover-foreground: hsl(0 0% 98%);
+    --primary: hsl(0 0% 98%);
+    --primary-foreground: hsl(240 5.9% 10%);
+    --secondary: hsl(240 3.7% 15.9%);
+    --secondary-foreground: hsl(0 0% 98%);
+    --muted: hsl(240 3.7% 15.9%);
+    --muted-foreground: hsl(240 5% 64.9%);
+    --accent: hsl(240 3.7% 15.9%);
+    --accent-foreground: hsl(0 0% 98%);
+    --destructive: hsl(0 62.8% 30.6%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --border: hsl(240 3.7% 15.9%);
+    --input: hsl(240 3.7% 15.9%);
+    --ring: hsl(240 4.9% 83.9%);
+    --radius: 0.75rem;
+
+    /* Typography Scale (Perfect Fifth) */
+    --font-size-base: 1rem;
+    --font-size-lg: 1.5rem;
+    --font-size-xl: 2.25rem;
+    --font-size-2xl: 3.375rem;
+    --font-size-3xl: 5.063rem;
+
+    /* Spacing System */
+    --section-gap: clamp(5rem, 10vw, 10rem);
+
+
+    /* Custom Blobs & Themes */
+    --blob-1: #d946ef;
+    --blob-2: #0ea5e9;
+    --blob-3: #8b5cf6;
+
+    --neon-primary: #ff00ff;
+    --neon-secondary: #00ffff;
+    --neon-accent: #aa00ff;
+
+    --aurora-primary: #00ffaa;
+    --aurora-secondary: #00aaff;
+    --aurora-accent: #aa00ff;
+  }
+
+  [data-theme='neon'] {
+    --blob-1: var(--neon-primary);
+    --blob-2: var(--neon-secondary);
+    --blob-3: var(--neon-accent);
+  }
+
+  [data-theme='aurora'] {
+    --blob-1: var(--aurora-primary);
+    --blob-2: var(--aurora-secondary);
+    --blob-3: var(--aurora-accent);
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-purple-500/30;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px currentColor;
+  }
+
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+
+  .noise-bg {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee var(--duration) linear infinite;
+  }
+
+  .animate-marquee-vertical {
+    animation: marquee-vertical var(--duration) linear infinite;
+  }
 }
