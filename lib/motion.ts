@@ -81,16 +81,14 @@ export const buttonPress: Variants = {
 
 // Page Transitions
 export const pageTransition: Variants = {
-    initial: { opacity: 0, filter: "blur(10px)", scale: 0.98 },
+    initial: { opacity: 0, scale: 0.98 },
     animate: {
         opacity: 1,
-        filter: "blur(0px)",
         scale: 1,
         transition: { duration: MotionConfig.durations.medium, ease: MotionConfig.easings.smooth }
     },
     exit: {
         opacity: 0,
-        filter: "blur(10px)",
         scale: 0.98,
         transition: { duration: MotionConfig.durations.fast, ease: MotionConfig.easings.default }
     },
